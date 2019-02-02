@@ -64,12 +64,12 @@ comments: true
 一个从应用本身优化程序，可以让应用程序不被系统杀死，尽量保活更久，如何实现可参考《[论Android应用进程长存的可行性](https://community.jiguang.cn/t/android/12429)》《[Android进程保活详解：一篇文章解决你的所有疑问](http://www.52im.net/thread-438-1-1.html)》文章。但目前很多操作系统限制很多，其实很难做到应用程序不被杀死，即使优化之后，可能并不适合所有机型，所以其实很难优化。也可以通过手机设置，让信任的APP应用尽量不被杀死，例如华为手机设置，具体方式可见[华为手机如何打开软件的锁屏后台运行及消息推送？ - 李木子的回答 - 知乎](https://www.zhihu.com/question/275335422/answer/379444001)。这种方式我也测试过，似乎没有任何改善。最后，可申请加入某些手机厂商的白名单，使得应用进程不会被杀死，个人认为这种对小公司开发的应用的可操作性也不强。这种方式通常需要提供厂商应用和申请等，需要等到厂商的审批。例如我在华为手机论坛上找到申请加入华为手机的白名单的申请表，见[应用如何加入华为官方系统白名单](https://club.huawei.com/thread-17032793-1-1.html)。
 
 ## 参考资料
-1. 极光对熄屏收不到消息的解释，https://community.jiguang.cn/t/topic/5145/3
-2. 知乎关于华为手机推送机制的讨论，https://www.zhihu.com/question/56669267
-3. Android 推送集成华为，小米，友盟测试，http://www.cnblogs.com/liyiran/p/6558652.html
-4. 知乎：iOS 和 Android 的后台推送原理各是什么？有什么区别？https://www.zhihu.com/question/20667886
-5. 目前推送存在的一些问题，https://www.jianshu.com/p/017096be88da
-6. 目前看到总结最全面的文章，https://juejin.im/post/57a19c012e958a0066715d0c
-7. 网友给出解决方案建议：https://blog.csdn.net/yueaini10000/article/details/81331444
+1. 极光对熄屏收不到消息的解释，[https://community.jiguang.cn/t/topic/5145/3]
+2. 知乎关于华为手机推送机制的讨论，[https://www.zhihu.com/question/56669267]
+3. Android 推送集成华为，小米，友盟测试，[http://www.cnblogs.com/liyiran/p/6558652.html]
+4. 知乎：iOS 和 Android 的后台推送原理各是什么？有什么区别？[https://www.zhihu.com/question/20667886]
+5. 目前推送存在的一些问题，[https://www.jianshu.com/p/017096be88da]
+6. 目前看到总结最全面的文章，[https://juejin.im/post/57a19c012e958a0066715d0c]
+7. 网友给出解决方案建议，[https://blog.csdn.net/yueaini10000/article/details/81331444]
 
 
