@@ -1,3 +1,4 @@
+---
 layout: post
 title: "分布式思维"
 date: 2019-10-15
@@ -7,7 +8,7 @@ comments: true
 ---
 
 ## 计算机与软件发展历史
-![计算机与软件反正历史](images/20191015-distributed-web-history.jpg)
+![计算机与软件反正历史](../images/20191015-distributed-web-history.jpg)
 ####web1.0时代特征
 主要是单向信息的发布，即信息门户网站，互联网信息由少数人编辑人员（或站长）定制发布，例如：新浪、网易、搜狐等
 ####web2.0时代特征
