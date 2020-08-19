@@ -290,7 +290,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
  
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
+       try {
             if (Object.class.equals(method.getDeclaringClass())) {
                 return method.invoke(this, args);
             } else if (isDefaultMethod(method)) {
@@ -322,7 +322,7 @@ public boolean apply(DynamicContext context) {
         contents.apply(context);
         return true;
     }
-    return false;
+    return false;
 } 
 ```
 
