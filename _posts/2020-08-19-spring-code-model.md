@@ -92,9 +92,6 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 
 
-- [ ]  延伸知识：利用3级缓存解决循环依赖的问题
-
-
 
 
 ## 4. 代理模式
@@ -123,7 +120,6 @@ public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException 
 }
 ```
 
-TODO： Spring的AOP如何实现
 
 
 
@@ -188,8 +184,6 @@ class AfterReturningAdviceAdapter implements AdvisorAdapter, Serializable {
 
 
 
-- [ ] Spring如何适配的方法：预计是通过Advisor链，通过实际传入的方法名称，调用不同的AdviceAdapter实现
-
   
 
 ## 8. 装饰器/包装器模式
@@ -204,7 +198,6 @@ Spring中**Strategy**后缀的方法，随着策略对象改变而改变的 使�
 
 
 
-- [ ] 装饰器模式和策略模式在Spring的源码实践
 
   
 
