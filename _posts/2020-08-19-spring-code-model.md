@@ -231,18 +231,18 @@ SqlSession作为mybatis的核心接口，用来管理事务，执行sql等操作
 在Mybatis中有两个地方用到单例模式，**ErrorContext**和 **LogFactory**，其中ErrorContext是用在每个线程范围内的单例，用于记录该线程的执行环境错误信息，而LogFactory则是提供给整个Mybatis使用的日志工厂，用于获得针对项目配置好的日志对象。
 
 ```java
-public class ErrorContext {
-    private static final ThreadLocal<ErrorContext> LOCAL = new ThreadLocal<ErrorContext>();
-    private ErrorContext() {
-    } 
-    public static ErrorContext instance() {
-        ErrorContext context = LOCAL.get();
-        if (context == null) {
-            context = new ErrorContext();
-            LOCAL.set(context);
-        }
-        return context;
-    }
+public class  ErrorContext  {
+        private  static  final  ThreadLocal<ErrorContext>  LOCAL  =  new  ThreadLocal<ErrorContext>();
+        private  ErrorContext()  {
+        } 
+        public  static  ErrorContext  instance()  {
+                ErrorContext  context  =  LOCAL.get();
+                if  (context  ==  null)  {
+                        context  =  new  ErrorContext();
+                        LOCAL.set(context);
+                }
+                return  context;
+        }
 }
 ```
 
@@ -252,57 +252,57 @@ public class ErrorContext {
 
 ```java
 /**
- * @author Lasse Voss
- */
-public class MapperProxyFactory<T> {
+  *  @author  Lasse  Voss
+  */
+public  class  MapperProxyFactory<T>  {
  
-    private final Class<T> mapperInterface;
-    private final Map<Method, MapperMethod> methodCache = new ConcurrentHashMap<Method, MapperMethod>();
+        private  final  Class<T>  mapperInterface;
+        private  final  Map<Method,  MapperMethod>  methodCache  =  new  ConcurrentHashMap<Method,  MapperMethod>();
  
-    public MapperProxyFactory(Class<T> mapperInterface) {
-        this.mapperInterface = mapperInterface;
-    }
+        public  MapperProxyFactory(Class<T>  mapperInterface)  {
+                this.mapperInterface  =  mapperInterface;
+        }
  
-    public Class<T> getMapperInterface() {
-        return mapperInterface;
-    }
+        public  Class<T>  getMapperInterface()  {
+                return  mapperInterface;
+        }
  
-    public Map<Method, MapperMethod> getMethodCache() {
-        return methodCache;
-    }
+        public  Map<Method,  MapperMethod>  getMethodCache()  {
+                return  methodCache;
+        }
  
-    @SuppressWarnings("unchecked")
-    protected T newInstance(MapperProxy<T> mapperProxy) {
-        return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface },
-                mapperProxy);
-    }
+        @SuppressWarnings("unchecked")
+        protected  T  newInstance(MapperProxy<T>  mapperProxy)  {
+                return  (T)  Proxy.newProxyInstance(mapperInterface.getClassLoader(),  new  Class[]  {  mapperInterface  },
+                                mapperProxy);
+        }
  
-    public T newInstance(SqlSession sqlSession) {
-        final MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);
-        return newInstance(mapperProxy);
-    }
+        public  T  newInstance(SqlSession  sqlSession)  {
+                final  MapperProxy<T>  mapperProxy  =  new  MapperProxy<T>(sqlSession,  mapperInterface,  methodCache);
+                return  newInstance(mapperProxy);
+        }
  
 }
 ```
 
 ```java
-public class MapperProxy<T> implements InvocationHandler, Serializable {
+public  class  MapperProxy<T>  implements  InvocationHandler,  Serializable  {
  
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-       try {
-            if (Object.class.equals(method.getDeclaringClass())) {
-                return method.invoke(this, args);
-            } else if (isDefaultMethod(method)) {
-                return invokeDefaultMethod(proxy, method, args);
-            }
-        } catch (Throwable t) {
-            throw ExceptionUtil.unwrapThrowable(t);
-        }
-        final MapperMethod mapperMethod = cachedMapperMethod(method);
-        return mapperMethod.execute(sqlSession, args);
-    }
-  }
+        @Override
+        public  Object  invoke(Object  proxy,  Method  method,  Object[]  args)  throws  Throwable  {
+           try  {
+                        if  (Object.class.equals(method.getDeclaringClass()))  {
+                                return  method.invoke(this,  args);
+                        }  else  if  (isDefaultMethod(method))  {
+                                return  invokeDefaultMethod(proxy,  method,  args);
+                        }
+                }  catch  (Throwable  t)  {
+                        throw  ExceptionUtil.unwrapThrowable(t);
+                }
+                final  MapperMethod  mapperMethod  =  cachedMapperMethod(method);
+                return  mapperMethod.execute(sqlSession,  args);
+        }
+    }
 ```
 
 
@@ -317,13 +317,13 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
 
 ```java
 @Override
-public boolean apply(DynamicContext context) {
-    if (evaluator.evaluateBoolean(test, context.getBindings())) {
-        contents.apply(context);
-        return true;
-    }
-    return false;
-} 
+public  boolean  apply(DynamicContext  context)  {
+        if  (evaluator.evaluateBoolean(test,  context.getBindings()))  {
+                contents.apply(context);
+                return  true;
+        }
+        return false;
+}  
 ```
 
 ## 6. 模板模式
@@ -353,60 +353,60 @@ public abstract class BaseExecutor implements Executor {
 eg：Mybatis的**PropertyTokenizer**是property包中的重量级类。
 
 ```java
-public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
-    private String name;
-    private String indexedName;
-    private String index;
-    private String children;
+public  class  PropertyTokenizer  implements  Iterator<PropertyTokenizer>  {
+        private  String  name;
+        private  String  indexedName;
+        private  String  index;
+        private  String  children;
  
-    public PropertyTokenizer(String fullname) {
-        int delim = fullname.indexOf('.');
-        if (delim > -1) {
-            name = fullname.substring(0, delim);
-            children = fullname.substring(delim + 1);
-        } else {
-            name = fullname;
-            children = null;
-        }
-        indexedName = name;
-        delim = name.indexOf('[');
-        if (delim > -1) {
-            index = name.substring(delim + 1, name.length() - 1);
-            name = name.substring(0, delim);
-        }
-    }
+        public  PropertyTokenizer(String  fullname)  {
+                int  delim  =  fullname.indexOf('.');
+                if  (delim  >  -1)  {
+                        name  =  fullname.substring(0,  delim);
+                        children  =  fullname.substring(delim  +  1);
+                }  else  {
+                        name  =  fullname;
+                        children  =  null;
+                }
+                indexedName  =  name;
+                delim  =  name.indexOf('[');
+                if  (delim  >  -1)  {
+                        index  =  name.substring(delim  +  1,  name.length()  -  1);
+                        name  =  name.substring(0,  delim);
+                }
+        }
  
-    public String getName() {
-        return name;
-    }
+        public  String  getName()  {
+                return  name;
+        }
  
-    public String getIndex() {
-        return index;
-    }
+        public  String  getIndex()  {
+                return  index;
+        }
  
-    public String getIndexedName() {
-        return indexedName;
-    }
+        public  String  getIndexedName()  {
+                return  indexedName;
+        }
  
-    public String getChildren() {
-        return children;
-    }
+        public  String  getChildren()  {
+                return  children;
+        }
  
-    @Override
-    public boolean hasNext() {
-        return children != null;
-    }
+        @Override
+        public  boolean  hasNext()  {
+                return  children  !=  null;
+        }
  
-    @Override
-    public PropertyTokenizer next() {
-        return new PropertyTokenizer(children);
-    }
+        @Override
+        public  PropertyTokenizer  next()  {
+                return  new  PropertyTokenizer(children);
+        }
  
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException(
-                "Remove is not supported, as it has no meaning in the context of properties.");
-    }
+        @Override
+        public  void  remove()  {
+                throw  new  UnsupportedOperationException(
+                                "Remove  is  not  supported,  as  it  has  no  meaning  in  the  context  of  properties.");
+        }
 }
 ```
 
